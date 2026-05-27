@@ -111,6 +111,36 @@ def food_waste_system():
             value,
             "異常"
         )
+import logging
+
+# 配置日誌記錄器
+logging.basicConfig(
+    level=logging.INFO, # 設定日誌級別為INFO
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler() # 將日誌輸出到控制台
+    ]
+)
+
+# ==========================================
+# 日誌記錄函數
+# ==========================================
+def write_log(system_name, value, status):
+    # datetime 已在 cell bND56H2DjW-E 中匯入
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_message = f"[{timestamp}] 系統: {system_name}, 值: {value}, 狀態: {status}"
+    logging.info(log_message)
+    print(f"日誌已記錄: {log_message}")
+
+    # ==========================================
+# 通知發送函數
+# ==========================================
+def send_notification(system_name, message, recipient):
+    notification_message = f"[通知] 系統: {system_name}, 訊息: {message}, 收件人: {recipient}"
+    print(f"通知已發送: {notification_message}")
+
+  # 執行剩食管理系統
+food_waste_system()
 
 # ==========================================
 # 3. 環境碳排放監測
