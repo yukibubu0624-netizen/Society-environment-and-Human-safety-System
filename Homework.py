@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 # ==========================================
 # 模擬資料庫（標準值）
@@ -85,6 +86,30 @@ def breathing_system():
 # ==========================================
 # 2. 剩食管理系統
 # ==========================================
+# 配置日誌記錄器
+logging.basicConfig(
+level=logging.INFO, # 設定日誌級別為INFO
+format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+handlers=[ 
+    logging.StreamHandler() # 將日誌輸出到控制台
+    ]
+)
+
+# ==========================================
+# 日誌記錄函數
+# ==========================================
+def write_log(system_name, value, status):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_message = f"[{timestamp}] 系統: {system_name}, 值: {value}, 狀態: {status}"
+    logging.info(log_message)
+    print(f"日誌已記錄: {log_message}")
+
+# ==========================================
+# 通知發送函數
+# ==========================================
+def send_notification(system_name, message, recipient):
+    notification_message = f"[通知] 系統: {system_name}, 訊息: {message}, 收件人: {recipient}"
+    print(f"通知已發送: {notification_message}")
 def food_waste_system():
     value = float(input("請輸入剩食重量(公斤)："))
     
@@ -111,6 +136,8 @@ def food_waste_system():
             value,
             "異常"
         )
+# 啟動剩食管理系統
+food_waste_system()
 
 # ==========================================
 # 3. 環境碳排放監測
